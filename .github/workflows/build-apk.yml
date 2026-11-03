@@ -22,6 +22,10 @@ jobs:
           chmod +x "$WRAPPER"
           echo "PROJECT_DIR=$(dirname "$WRAPPER")" >> $GITHUB_ENV
 
+      - name: Add Anko repository
+        run: |
+          sed -i "/repositories {/a\\        maven { url 'https://artifactory.appodeal.com/appodeal-public/' }" "$PROJECT_DIR/build.gradle"
+
       - name: Build APK
         run: cd "$PROJECT_DIR" && ./gradlew assembleDebug
 
